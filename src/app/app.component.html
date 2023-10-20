@@ -11,7 +11,7 @@
       <table class="table table-striped table-bordered">
         <thead>
           <tr>
-        
+
             <th colspan="6">
               Ficha de goblins
             </th>
@@ -20,69 +20,95 @@
         <tbody>
           <tr>
             <th colspan="4">
-              Nome: {{goblin.name}}
+              Nome: {{goblin.nome}}
             </th>
             <th colspan="2">
               Nivel: {{goblin?.nivel}}
             </th>
           </tr>
           <tr>
-            <th colspan="6">
+            <th colspan="3">
               Ocupação: {{goblin?.ocupacao}}
             </th>
-           
+            <th colspan="3">
+              Descritor: {{goblin?.descritor}}
+            </th>
+
           </tr>
-          
+
           <tr>
             <th colspan="6">
               Características: {{goblin?.caracteristica}}
             </th>
           </tr>
-      
+
           <tr>
             <th colspan="3">
-              combate: {{goblin?.combate}}
+              Combate:
+              <select [value]="goblin?.combate">
+                <option value="1" >1</option>
+                <option value="2" >2</option>
+                <option value="3" >3</option>
+                <option value="4" >4</option>
+              </select>
             </th>
-           
+
             <th  colspan="3">
               Equipamento
             </th>
-           
+
           </tr>
           <tr>
             <th  colspan="3">
-              Habilidade: {{goblin?.habilidade}}
+              Habilidade:
+              <select [value]="goblin?.habilidade">
+                <option value="1" >1</option>
+                <option value="2" >2</option>
+                <option value="3" >3</option>
+                <option value="4" >4</option>
+              </select>
             </th>
-            
+
             <td colspan="3" rowspan="5">
-              
+
             </td>
-           
+
           </tr>
           <tr>
             <th  colspan="3">
-              Noção: <select><option value="1" >1</option> <option value="2" >2</option> <option value="3" >3</option> </select>
+              Noção: <select [value]="goblin?.nocao">
+                <option value="1" >1</option>
+                <option value="2" >2</option>
+                <option value="3" >3</option>
+                <option value="4" >4</option>
+              </select>
             </th>
-            
+
           </tr>
           <tr>
             <th colspan="3">
-              Vitalidade: {{goblin?.vitalidade}}
+              Vitalidade:
+              <select [value]="goblin?.vitalidade">
+                <option value="1" >1</option>
+                <option value="2" >2</option>
+                <option value="3" >3</option>
+                <option value="4" >4</option>
+              </select>
             </th>
-           
+
           </tr>
           <tr>
             <th colspan="3" rowspan="2">
               Ferimentos: {{goblin?.ferimento}}
             </th>
-           
+
           </tr>
         </tbody>
       </table>
     </div>
-   
-  
+
+
   </div>
-  
-  
+
+
 </div>

@@ -1,0 +1,31 @@
+
+<h1 mat-dialog-title>Detalhes do novo goblin</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <div [formArrayName]="'formPerguntas'">
+      <div  *ngFor="let control of formPerguntas.controls; let i=index;">
+        <div class="d-flex flex-column" *ngIf="escolhas[i]?.hasOptions; else templateNOtOPtions">
+          <Label>{{escolhas[i].pergunta}}</Label>
+          <select [formControlName]="i">
+            <option *ngFor="let option of escolhas[i].options;" [value]="option.value"> {{option.label}}</option>
+          </select>
+        </div>
+
+        <ng-template
+         #templateNOtOPtions>
+          <div class="d-flex flex-column">
+            <Label>{{escolhas[i].pergunta}}</Label>
+            <input type="text" [formControlName]="i" >
+          </div>
+        </ng-template>
+      </div>
+
+    </div>
+
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Fechar</button>
+  <button mat-button mat-dialog-close (click)="save()"> Salvar</button>
+</div>
+

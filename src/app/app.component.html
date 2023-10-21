@@ -16,15 +16,31 @@
               Ficha de goblins
             </th>
           </tr>
+          <tr>
+            <th colspan="6">
+              <span >Dados: </span>
+              <span class="px-2 me-1 py-1 border rounded border-solid border-black" style="aspect-ratio: '1:1';" [title]="dado.value" *ngFor="let dado of goblin.dados">
+                 {{dado.value}}
+              </span>
+            </th>
+          </tr>
         </thead>
         <tbody>
           <tr>
             <th colspan="4">
               Nome: {{goblin.nome}}
             </th>
-            <th colspan="2">
-              Nivel: {{goblin?.nivel}}
+            <th title="Todo goblin começa no nível 1. Sempre que derrotar um oponente, você deverá rolar um dado. Se cair “6”, você ganhará 1 nível. Ganhando níveis, você aprenderá uma nova Técnica da sua ocupação. Se chegar ao nível 4, parabéns! Seu goblin fica tão feliz que explode de alegria" colspan="1">
+              Nivel:
             </th>
+            <td>
+              <select [value]="goblin?.nivel">
+                <option value="1" >1</option>
+                <option value="2" >2</option>
+                <option value="3" >3</option>
+                <option value="4" >4</option>
+              </select>
+            </td>
           </tr>
           <tr>
             <th colspan="3">
@@ -38,20 +54,26 @@
 
           <tr>
             <th colspan="6">
-              Características: {{goblin?.caracteristica}}
+              <span >Características: </span>
+              <span class="px-2 me-1 py-1 border rounded border-solid border-black" [title]="caracteristica.descricao" *ngFor="let caracteristica of goblin.caracteristicas">
+                 {{caracteristica.nome}}
+              </span>
             </th>
           </tr>
 
           <tr>
-            <th colspan="3">
-              Combate:
+            <th [title]="'Número de dados que você rolará para atacar'" colspan="2">
+             <span >Combate:</span>
+
+            </th>
+            <td>
               <select [value]="goblin?.combate">
                 <option value="1" >1</option>
                 <option value="2" >2</option>
                 <option value="3" >3</option>
                 <option value="4" >4</option>
               </select>
-            </th>
+            </td>
 
             <th  colspan="3">
               Equipamento
@@ -59,15 +81,18 @@
 
           </tr>
           <tr>
-            <th  colspan="3">
+            <th title="Número de dados que você rolará quando fizer alguma ação fora de combate" colspan="2">
               Habilidade:
+
+            </th>
+            <td>
               <select [value]="goblin?.habilidade">
                 <option value="1" >1</option>
                 <option value="2" >2</option>
                 <option value="3" >3</option>
                 <option value="4" >4</option>
               </select>
-            </th>
+            </td>
 
             <td colspan="3" rowspan="5">
 
@@ -75,26 +100,32 @@
 
           </tr>
           <tr>
-            <th  colspan="3">
-              Noção: <select [value]="goblin?.nocao">
+            <th title=" Número de dados que você rolará para saber se seu personagem conhece algo"  colspan="2">
+              Noção:
+            </th>
+            <td>
+              <select [value]="goblin?.nocao">
                 <option value="1" >1</option>
                 <option value="2" >2</option>
                 <option value="3" >3</option>
                 <option value="4" >4</option>
               </select>
-            </th>
+            </td>
 
           </tr>
           <tr>
-            <th colspan="3">
+            <th title="Quantidade máxima de ferimentos que seu personagem pode ter antes de morrer" colspan="2">
               Vitalidade:
+            </th>
+
+            <td>
               <select [value]="goblin?.vitalidade">
                 <option value="1" >1</option>
                 <option value="2" >2</option>
                 <option value="3" >3</option>
                 <option value="4" >4</option>
               </select>
-            </th>
+            </td>
 
           </tr>
           <tr>

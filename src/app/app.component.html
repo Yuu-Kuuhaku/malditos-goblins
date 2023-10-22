@@ -30,17 +30,16 @@
             <th colspan="4">
               Nome: {{goblin.nome}}
             </th>
-            <th title="Todo goblin começa no nível 1. Sempre que derrotar um oponente, você deverá rolar um dado. Se cair “6”, você ganhará 1 nível. Ganhando níveis, você aprenderá uma nova Técnica da sua ocupação. Se chegar ao nível 4, parabéns! Seu goblin fica tão feliz que explode de alegria" colspan="1">
+            <th title="Todo goblin começa no nível 1. Sempre que derrotar um oponente, você deverá rolar um dado. Se cair “6”, você ganhará 1 nível. Ganhando níveis, você aprenderá uma nova Técnica da sua ocupação. Se chegar ao nível 4, parabéns! Seu goblin fica tão feliz que explode de alegria" colspan="2">
               Nivel:
-            </th>
-            <td>
               <select [value]="goblin?.nivel">
                 <option value="1" >1</option>
                 <option value="2" >2</option>
                 <option value="3" >3</option>
                 <option value="4" >4</option>
               </select>
-            </td>
+            </th>
+
           </tr>
           <tr>
             <th colspan="3">
@@ -67,16 +66,53 @@
 
             </th>
             <td>
-              <select [value]="goblin?.combate">
-                <option value="1" >1</option>
-                <option value="2" >2</option>
-                <option value="3" >3</option>
-                <option value="4" >4</option>
-              </select>
+              {{goblin?.combate}}
             </td>
 
-            <th  colspan="3">
-              Equipamento
+            <th  colspan="3" rowspan="5">
+              <strong>Equipamento:</strong>
+              <div class="mb-2" [title]="equipamento?.descricao || equipamento?.ataque " *ngFor="let equipamento of goblin.equipamentos;">
+                <span *ngIf="equipamento?.durabilidade != undefined; else templateArma;">
+                  {{equipamento?.nome}}: protege {{equipamento?.durabilidade}} hits
+                  <span class="ms-1" *ngIf="equipamento?.especial && equipamento?.especial.length > 0">
+                    <span [title]="especial?.descricao" *ngFor="let especial of equipamento.especial;" class="px-1 me-1 mb-1 border rounded border-solid border-black">
+                      {{especial.nome}}
+                   </span>
+                  </span>
+                </span>
+                <ng-template #templateArma>
+                  <span> {{equipamento?.nome}}: </span>
+                  <span *ngIf="equipamento?.bonus">{{equipamento?.bonus}} </span>
+
+                  <span class="ms-1" *ngIf="equipamento?.especial && equipamento?.especial.length > 0">
+                    <span [title]="especial?.descricao" *ngFor="let especial of equipamento.especial;" class="px-1 py-1 me-1 mb-1 border rounded border-solid border-black">
+                      {{especial.nome}}
+                      <span *ngIf="especial?.quantidade != undefined">
+                        <select [value]="especial?.quantidade">
+                          <option value="1"> 1 </option>
+                          <option value="2"> 2 </option>
+                          <option value="3"> 3 </option>
+                          <option value="4"> 4 </option>
+                          <option value="5"> 5 </option>
+                          <option value="6"> 6 </option>
+                          <option value="7"> 7 </option>
+                          <option value="8"> 8 </option>
+                          <option value="9"> 9 </option>
+                          <option value="10"> 10 </option>
+                          <option value="11"> 11 </option>
+                          <option value="12"> 12 </option>
+                          <option value="13"> 13 </option>
+                          <option value="14"> 14 </option>
+                          <option value="15"> 15 </option>
+
+
+                        </select>
+                      </span>
+                   </span>
+                  </span>
+                </ng-template>
+
+              </div>
             </th>
 
           </tr>
@@ -86,30 +122,15 @@
 
             </th>
             <td>
-              <select [value]="goblin?.habilidade">
-                <option value="1" >1</option>
-                <option value="2" >2</option>
-                <option value="3" >3</option>
-                <option value="4" >4</option>
-              </select>
+             {{goblin?.habilidade}}
             </td>
-
-            <td colspan="3" rowspan="5">
-
-            </td>
-
           </tr>
           <tr>
             <th title=" Número de dados que você rolará para saber se seu personagem conhece algo"  colspan="2">
               Noção:
             </th>
             <td>
-              <select [value]="goblin?.nocao">
-                <option value="1" >1</option>
-                <option value="2" >2</option>
-                <option value="3" >3</option>
-                <option value="4" >4</option>
-              </select>
+             {{goblin?.nocao}}
             </td>
 
           </tr>
@@ -119,18 +140,23 @@
             </th>
 
             <td>
-              <select [value]="goblin?.vitalidade">
-                <option value="1" >1</option>
-                <option value="2" >2</option>
-                <option value="3" >3</option>
-                <option value="4" >4</option>
-              </select>
+             {{goblin?.vitalidade}}
             </td>
 
           </tr>
           <tr>
             <th colspan="3" rowspan="2">
-              Ferimentos: {{goblin?.ferimento}}
+              Ferimentos:
+
+              <select [value]="goblin?.ferimento">
+                <option value="0" >0</option>
+                <option value="1" >1</option>
+                <option value="2" >2</option>
+                <option value="3" >3</option>
+                <option value="4" >4</option>
+                <option value="5" >5</option>
+                <option value="6" >6</option>
+              </select>
             </th>
 
           </tr>

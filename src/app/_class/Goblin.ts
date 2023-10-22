@@ -424,8 +424,7 @@ const ocupacoes = [
                 especial: [
                   {
                     nome: "Arremesso",
-                    descricao: "",
-
+                    descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
                   }
                 ]
               },
@@ -437,8 +436,7 @@ const ocupacoes = [
                 especial: [
                   {
                     nome: "Arremesso",
-                    descricao: "",
-
+                    descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
                   }
                 ]
               })
@@ -449,14 +447,7 @@ const ocupacoes = [
                 nome: "Machadão",
                 uso:"Duas mãos",
                 ataque: "Corporal",
-                bonus: "+3d",
-                especial: [
-                  {
-                    nome: "Arremesso",
-                    descricao: "",
-
-                  }
-                ]
+                bonus: "+3d"
               })
               break;
             default:
@@ -534,22 +525,9 @@ const ocupacoes = [
                     quantidade: 10
                   }
                 ]
-              },
-              {
-                nome: "Machadinha",
-                uso:"Uma mão",
-                ataque: "Corporal",
-                bonus: "+2d",
-                especial: [
-                  {
-                    nome: "Arremesso",
-                    descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
-                  }
-                ]
-              })
-
+              },);
               break;
-              case 'Pistola e Chapéu':
+            case 'Pistola e Chapéu':
                 goblin.equipamentos.push({
                   nome: "Pistola",
                   uso: "Uma mão",
@@ -701,7 +679,7 @@ const ocupacoes = [
       goblin.ocupacao = 'Líder';
       goblin.vitalidade++;
       goblin.perguntas.push({
-        pergunta: "Escolha o equipamento de Gatuno",
+        pergunta: "Escolha o equipamento de Líder",
         hasOptions: true,
         options: [
           {label: "Espada e Medalhas de Guerra", value: "Espada e Medalhas de Guerra"},
@@ -735,21 +713,13 @@ const ocupacoes = [
                 uso: 'Cabeça',
                 durabilidade: 2
               })
-
               break;
             case 'Espadona':
               goblin.equipamentos.push({
-                nome: "Machadão",
+                nome: "Espadona",
                 uso:"Duas mãos",
                 ataque: "Corporal",
                 bonus: "+3d",
-                especial: [
-                  {
-                    nome: "Arremesso",
-                    descricao: "",
-
-                  }
-                ]
               })
               break;
             default:
@@ -765,14 +735,88 @@ const ocupacoes = [
       goblin.ocupacao = 'Incendiário';
       goblin.vitalidade++;
       goblin.perguntas.push({
-        pergunta: "Escolha o equipamento de Gatuno",
+        pergunta: "Escolha o equipamento de Incendiário",
         hasOptions: true,
         options: [
           {label: "Barril de Pólvora", value: "Barril de Pólvora"},
           {label: "Pistola e Galinha Explosiva", value: "Pistola e Galinha Explosiva"},
           {label: "Bacamarte e Chapéu", value: "Bacamarte e Chapéu"},
 
-        ]
+        ],
+        resolve: (resp: string) => {
+          switch (resp) {
+            case 'Barril de Pólvora':
+              goblin.equipamentos.push({
+                nome: "Barril de Pólvora",
+                descricao: "Se for aceso, vai explodir e causar 4 ferimentos a todos em sua volta e 2 ferimentos a todos a até 5 metros. Pode usá-lo para completar a munição de até 3 armas de fogo."
+              }
+              );
+              break;
+            case 'Pistola e Galinha Explosiva':
+              goblin.equipamentos.push({
+                nome: "Pistola",
+                uso: "Uma mão",
+                ataque: "Distância",
+                bonus: "+2d",
+                especial: [
+                  {
+                    nome: "Recarga",
+                    descricao: "Depois de atacar, deve gastar um turno recarregando para atacar novamente"
+                  },
+                  {
+                    nome: "Munição",
+                    descricao: "Você tem um limite de X ataques. Precisará conseguir mais munição para poder atacar",
+                    quantidade: 5
+                  }
+
+                ]
+              },
+              {
+                nome: "Galinha Explosiva",
+                descricao: "Você pode arremessá-la ou deixá-la andando. Explode em dois turnos. Quando explode, causa 3 ferimentos a todos em sua volta.",
+                especial: [
+                  {
+                    nome: "Arremesso",
+                    descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
+                  }
+                ]
+              })
+              break;
+            case 'Bacamarte e Chapéu':
+              goblin.equipamentos.push({
+                nome: "Bacamarte",
+                uso:"Duas mãos",
+                ataque: "Distância",
+                bonus: "+3d",
+                especial: [
+                  {
+                    nome: "Recarga",
+                    descricao: "Depois de atacar, deve gastar um turno recarregando para atacar novamente"
+                  },
+                  {
+                    nome: "Munição",
+                    descricao: "Você tem um limite de X ataques. Precisará conseguir mais munição para poder atacar",
+                    quantidade: 5
+                  }
+
+                ]
+              },
+              {
+                nome: "Chapéu",
+                uso:"Cabeça",
+                durabilidade: 0,
+                especial: [
+                  {
+                    nome: "Sorte",
+                    descricao: "Se estiver na sua cabeça, você pode destruir este item quando receber um ataque à distância e ignorar todo o dano"
+                  }
+                ]
+              })
+              break;
+            default:
+              break;
+          }
+        },
       })
     },
   },
@@ -782,13 +826,79 @@ const ocupacoes = [
       goblin.ocupacao = 'Bruxo';
       goblin.nocao++;
       goblin.perguntas.push({
-        pergunta: "Escolha o equipamento de Gatuno",
+        pergunta: "Escolha o equipamento de Bruxo",
         hasOptions: true,
         options: [
           {label: "Cajado", value: "Cajado"},
           {label: "Varinha e Cachecol", value: "Varinha e Cachecol"},
           {label: "Vassoura e Chapéu", value: "Vassoura e Chapéu"},
-        ]
+        ],
+        resolve: (resp: string) => {
+          switch (resp) {
+            case 'Cajado':
+              goblin.equipamentos.push({
+                nome: "Cajado",
+                uso: "Duas mãos",
+                ataque: "Corporal",
+                bonus: "+1d",
+                especial: [
+                  {
+                    nome: "Condutor Mágico",
+                    descricao: "Pode conjurar magias através deste item"
+                  }
+                ]
+              }
+              );
+              break;
+            case 'Varinha e Cachecol':
+              goblin.equipamentos.push({
+                nome: "Varinha",
+                uso: "Uma mão",
+                ataque: "Corporal",
+                bonus: "+0d",
+              },
+              {
+                nome: "Cachecol",
+                uso: "Pescoço",
+                durabilidade: 0,
+                especial: [
+                  {
+                    nome: "Arcano",
+                    descricao: "Quem estiver vestindo pode rolar 1 dado a mais em testes para conjurar magias",
+                  }
+                ],
+              })
+              break;
+            case 'Vassoura e Chapéu':
+              goblin.equipamentos.push({
+                nome: "Vassoura",
+                uso:"Duas mãos",
+                ataque: "Corporal",
+                bonus: "+1d",
+                especial: [
+                  {
+                    nome: "Condutor Mágico",
+                    descricao: "Pode conjurar magias através deste item"
+                  },
+                ]
+
+              },
+              {
+                nome: "Chapéu",
+                uso:"Cabeça",
+                durabilidade: 0,
+                especial: [
+                  {
+                    nome: "Sorte",
+                    descricao: "Se estiver na sua cabeça, você pode destruir este item quando receber um ataque à distância e ignorar todo o dano"
+                  }
+                ]
+              })
+              break;
+            default:
+              break;
+          }
+        },
       })
 
     },

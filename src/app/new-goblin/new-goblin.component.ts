@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -23,7 +23,7 @@ export class NewGoblinComponent {
     })
 
     this.escolhas.forEach((item )=> {
-      this.formPerguntas.push(new FormControl())
+      this.formPerguntas.push(new FormControl(null, [ Validators.required]))
     })
   }
 
@@ -31,11 +31,11 @@ export class NewGoblinComponent {
     return this.form.controls['formPerguntas'] as FormArray
   }
 
-  close(){
-    this.modalNewGoblin.close();
-  }
-
   save(){
+    if(this.form.invalid){
+      this.form.markAllAsTouched();
+      return;
+    }
     this.modalNewGoblin.close(this.form.value);
   }
 

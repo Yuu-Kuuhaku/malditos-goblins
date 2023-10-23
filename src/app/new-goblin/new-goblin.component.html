@@ -1,21 +1,33 @@
 
+<button style="position: absolute; right: 0; color: red;" mat-button mat-dialog-close><strong>x</strong></button>
 <h1 mat-dialog-title>Detalhes do novo goblin</h1>
-<div mat-dialog-content>
+
+<div mat-dialog-content >
   <form [formGroup]="form">
     <div [formArrayName]="'formPerguntas'">
       <div  *ngFor="let control of formPerguntas.controls; let i=index;">
         <div class="d-flex flex-column" *ngIf="escolhas[i]?.hasOptions; else templateNOtOPtions">
-          <Label>{{escolhas[i].pergunta}}</Label>
-          <select [formControlName]="i">
-            <option *ngFor="let option of escolhas[i].options;" [value]="option.value"> {{option.label}}</option>
-          </select>
+
+          <mat-form-field class="example-form-field">
+            <mat-label>{{escolhas[i].pergunta}}</mat-label>
+            <mat-select
+              [minlength]="escolhas[i]?.minLength"
+              [maxlength]="escolhas[i]?.maxLength"
+              [multiple]="escolhas[i]?.multiple || false"
+              [formControlName]="i">
+              <mat-option *ngFor="let option of escolhas[i].options;" [value]="option.value"> {{option.label}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
 
         <ng-template
          #templateNOtOPtions>
           <div class="d-flex flex-column">
-            <Label>{{escolhas[i].pergunta}}</Label>
-            <input type="text" [formControlName]="i" >
+            <mat-form-field class="example-form-field">
+              <mat-label>{{escolhas[i].pergunta}}</mat-label>
+              <input matInput type="text" [formControlName]="i">
+            </mat-form-field>
+
           </div>
         </ng-template>
       </div>
@@ -26,6 +38,6 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Fechar</button>
-  <button mat-button mat-dialog-close (click)="save()"> Salvar</button>
+  <button  mat-raised-button color="primary" [disabled]="form.invalid " (click)="save()"> Salvar</button>
 </div>
 

@@ -1,4 +1,5 @@
 export interface GoblinInterface {
+  isDead: boolean,
   nome: string,
   nivel: number,
   ocupacao: string,
@@ -12,6 +13,7 @@ export interface GoblinInterface {
   dados: Dado[],
   poderes: Poder [],
   equipamentos: Equipamento[];
+  magias: string[];
 
   generateD6: function;
 }
@@ -39,6 +41,9 @@ export interface Pergunta {
   pergunta: string,
   hasOptions: boolean,
   options: Option[],
+  multiple?: boolean,
+  minLength?: number,
+  maxLength?: number,
 
   resolve: function
 }
@@ -53,7 +58,9 @@ export interface Dado {
 }
 
 export interface Poder {
-
+  nome: string,
+  descricao: string,
+  nivel: 1,
 }
 
 export interface Equipamento {

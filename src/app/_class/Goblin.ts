@@ -15,6 +15,27 @@ export class Goblin implements GoblinInterface {
     return this._nivel;
   }
   public set nivel(value: number) {
+
+    if(value == 4) {
+      this.isDead = true;
+      return;
+    } else if(value > this.nivel){
+      let poder: Poder = ocupacoes.find(item => item.nome == this.ocupacao)?.poderes.find(item => item.nivel == value) as Poder;
+      if(poder){
+        this.poderes.push(
+          poder
+        )
+      }
+    } else if(value < this.nivel) {
+      let poderIndex = this.poderes.findIndex(item => item.nivel == this.nivel)
+
+      if(poderIndex > -1){
+        this.poderes.splice(poderIndex, 1)
+      }
+    }
+
+
+
     this._nivel = value;
   }
   private _ocupacao!: string;
@@ -96,11 +117,28 @@ export class Goblin implements GoblinInterface {
     this._equipamentos = value;
   }
 
+  private _isDead: boolean = false;
+  public get isDead(): boolean {
+    return this._isDead;
+  }
+  public set isDead(value: boolean) {
+    this._isDead = value;
+  }
+
+  private _magias: string[] = [];
+  public get magias(): string[] {
+    return this._magias;
+  }
+  public set magias(value: string[]) {
+    this._magias = value;
+  }
 
   constructor() {
     this.init();
 
   }
+
+
 
 
 
@@ -216,38 +254,6 @@ const nomes: NomeObject[][] = [
     {
       modificador: (goblin: any) => {
         goblin.nome = 'Bum';
-      },
-    },
-  ],
-  [
-    {
-      modificador: (goblin: any) => {
-        goblin.nome = 'Spray';
-      },
-    },
-    {
-      modificador: (goblin: any) => {
-        goblin.nome = 'Cringe';
-      },
-    },
-    {
-      modificador: (goblin: any) => {
-        goblin.nome = 'Sopa';
-      },
-    },
-    {
-      modificador: (goblin: any) => {
-        goblin.nome = 'Ovo';
-      },
-    },
-    {
-      modificador: (goblin: any) => {
-        goblin.nome = 'Ban';
-      },
-    },
-    {
-      modificador: (goblin: any) => {
-        goblin.nome = 'Nhack';
       },
     },
   ],
@@ -455,7 +461,32 @@ const ocupacoes = [
           }
         },
       })
+      goblin.poderes.push(
+        {
+          nome: "Mestre de Armas",
+          descricao: "Você sempre rola +1 dado em todos os ataques que fizer lutando com sua arma favorita",
+          nivel: 1
+        }
+      )
     },
+    poderes: [
+      {
+        nome: "Mestre de Armas",
+        descricao: "Você sempre rola +1 dado em todos os ataques que fizer lutando com sua arma favorita",
+        nivel: 1
+      },
+      {
+        nome: "Ataque Giratório",
+        descricao: "Sempre que você causar dano a um inimigo com uma arma corporal, pode fazer mais um ataque contra outro inimigo que estiver ao seu alcance",
+        nivel: 2
+      },
+      {
+        nome: "Ataque Brutal",
+        descricao: "Uma vez por dia, você pode declarar um Ataque Brutal. Faça um ataque corporal normalmente com o dobro de dados",
+        nivel: 3
+      }
+
+    ]
   },
   {
     nome: 'Caçador',
@@ -563,7 +594,32 @@ const ocupacoes = [
           }
         },
       })
+      goblin.poderes.push(
+        {
+          nome: "Inimigo",
+          descricao: "Escolha uma espécie de criatura quando começar o jogo. Você sempre rola +1 dado em todos os ataques contra essa espécie de criatura",
+          nivel: 1
+        }
+      )
     },
+    poderes: [
+      {
+        nome: "Inimigo",
+        descricao: "Escolha uma espécie de criatura quando começar o jogo. Você sempre rola +1 dado em todos os ataques contra essa espécie de criatura",
+        nivel: 1
+      },
+      {
+        nome: "Rastrear",
+        descricao: "Você sabe seguir pegadas e identificar a criatura das pegadas",
+        nivel: 2
+      },
+      {
+        nome: "Tiro Certeiro",
+        descricao: "Uma vez por dia, você pode declarar um Tiro Certeiro. Faça um ataque à distância normalmente com o dobro de dados",
+        nivel: 3
+      }
+
+    ]
   },
   {
     nome: 'Gatuno',
@@ -671,7 +727,32 @@ const ocupacoes = [
           }
         },
       })
+      goblin.poderes.push(
+        {
+          nome: "Roubar",
+          descricao: "Conseguindo 1 hit em um teste de Habilidade, você pode roubar um objeto do bolso de qualquer pessoa sem que ela perceba",
+          nivel: 1
+        }
+      )
     },
+    poderes: [
+      {
+        nome: "Roubar",
+        descricao: "Conseguindo 1 hit em um teste de Habilidade, você pode roubar um objeto do bolso de qualquer pessoa sem que ela perceba",
+        nivel: 1
+      },
+      {
+        nome: "Ataque Furtivo",
+        descricao: "Você sempre rola 2 dados a mais se fizer um ataque contra um alvo que não sabe onde você está",
+        nivel: 2
+      },
+      {
+        nome: "Esconder",
+        descricao: "Uma vez por dia, você pode se esconder sem precisar fazer um teste. Você estará completamente escondido até se mexer ou emitir som",
+        nivel: 3
+      }
+
+    ]
   },
   {
     nome: 'Líder',
@@ -726,8 +807,33 @@ const ocupacoes = [
               break;
           }
         },
-      })
+      });
+      goblin.poderes.push(
+        {
+          nome: "Grito de Guerra",
+          descricao: "Uma vez por dia, você pode dar este grito. Faça um teste de Noção e, se conseguir 1 hit, todos os seus aliados ficarão com Combate +1 até o final da batalha",
+          nivel: 1
+        }
+      )
     },
+    poderes: [
+      {
+        nome: "Grito de Guerra",
+        descricao: "Uma vez por dia, você pode dar este grito. Faça um teste de Noção e, se conseguir 1 hit, todos os seus aliados ficarão com Combate +1 até o final da batalha",
+        nivel: 1
+      },
+      {
+        nome: "Humilhação",
+        descricao: "Uma vez por dia, você pode gritar e xingar um aliado seu que eliminará todos os ferimentos dele",
+        nivel: 2
+      },
+      {
+        nome: "Ataque Brutal",
+        descricao: "Uma vez por dia, você pode declarar um Ataque Brutal. Faça um ataque corporal normalmente com o dobro de dados",
+        nivel: 3
+      }
+
+    ]
   },
   {
     nome: 'Incendiário',
@@ -818,7 +924,32 @@ const ocupacoes = [
           }
         },
       })
+      goblin.poderes.push(
+        {
+          nome: "Resistência",
+          descricao: "Você sempre recebe 1 ferimento a menos de ataques de fogo ou tiro de armas de fogo",
+          nivel: 1
+        }
+      )
     },
+    poderes: [
+      {
+        nome: "Resistência",
+        descricao: "Você sempre recebe 1 ferimento a menos de ataques de fogo ou tiro de armas de fogo",
+        nivel: 1
+      },
+      {
+        nome: "Delírio",
+        descricao: "Você pode se livrar de todos os ferimentos se você explodir ou queimar completamente uma casa ou algo maior que isso",
+        nivel: 2
+      },
+      {
+        nome: "Imunidade",
+        descricao: "Você é imune a fogo",
+        nivel: 3
+      }
+
+    ]
   },
   {
     nome: 'Bruxo',
@@ -900,8 +1031,54 @@ const ocupacoes = [
           }
         },
       })
+      goblin.perguntas.push({
+        pergunta: "Escolha o 3 magias",
+        hasOptions: true,
+        multiple: true,
+        minLength: 3,
+        maxLength: 3,
+        options: [
+          {label: "Fogo", value: "Fogo"},
+          {label: "Gelo", value: "Gelo"},
+          {label: "Relâmpago", value: "Relâmpago"},
+          {label: "Troca", value: "Troca"},
+          {label: "Morte", value: "Morte"},
+          {label: "Cura", value: "Cura"},
+          {label: "Planta", value: "Planta"},
+        ],
+        resolve: (resp: string[]) => {
+          goblin.magias = resp
+        },
+      })
+
+      goblin.poderes.push(
+        {
+          nome: "Magias",
+          descricao: "Você pode conjurar magias da sua lista (escolha 3 magias). Para conjurar uma magia, faça um teste de Noção e consulte o efeito da magia (página 10)",
+          nivel: 1
+        }
+      )
 
     },
+
+    poderes: [
+      {
+        nome: "Magias",
+        descricao: "Você pode conjurar magias da sua lista (escolha 3 magias). Para conjurar uma magia, faça um teste de Noção e consulte o efeito da magia (página 10)",
+        nivel: 1
+      },
+      {
+        nome: "Condutor Mágico",
+        descricao: "Se você conjurar a magia por uma varinha, cajado ou outro Condutor Mágico, você rola 1 dado a mais",
+        nivel: 2
+      },
+      {
+        nome: "Implacável",
+        descricao: "Uma vez por dia, você pode conjurar uma magia sem rolar os dados, apenas escolhendo o resultado",
+        nivel: 3
+      }
+
+    ]
   },
 ];
 

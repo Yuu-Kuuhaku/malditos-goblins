@@ -40,6 +40,16 @@ export class AppComponent {
     }
   }
 
+  changeGoblinValue(event: any, goblin: GoblinInterface){
+
+    let value = event.target.value;
+
+    goblin.nivel = Number(value);
+
+    // console.log(event);
+    // console.log(goblin);
+  }
+
   openDialog(goblin: any) {
     this.dialogRefNewGoblin = this.dialog.open(NewGoblinComponent, {
       data: goblin,

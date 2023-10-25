@@ -32,7 +32,7 @@
             <th colspan="4">
               Nome: {{goblin.nome}}
             </th>
-            <th title="Todo goblin começa no nível 1. Sempre que derrotar um oponente, você deverá rolar um dado. Se cair “6”, você ganhará 1 nível. Ganhando níveis, você aprenderá uma nova Técnica da sua ocupação. Se chegar ao nível 4, parabéns! Seu goblin fica tão feliz que explode de alegria" colspan="2">
+            <th matTooltip="Todo goblin começa no nível 1. Sempre que derrotar um oponente, você deverá rolar um dado. Se cair “6”, você ganhará 1 nível. Ganhando níveis, você aprenderá uma nova Técnica da sua ocupação. Se chegar ao nível 4, parabéns! Seu goblin fica tão feliz que explode de alegria" colspan="2">
               Nível:
               <select [value]="goblin?.nivel" (change)="changeGoblinValue($event, goblin)">
                 <option value="1" >1</option>
@@ -61,21 +61,48 @@
               </span>
             </th>
           </tr>
-
+          
           <tr>
-            <th [title]="'Número de dados que você rolará para atacar'" colspan="2">
+            <th colspan="2">
              <span >Combate:</span>
+             <mat-icon [inline]="true" class="custom-tooltip">
+                help_outline
+                <div class="custom-tooltiptext">
+                  <p>
+                    Número de dados que você rolará para atacar
+                  </p>
+                </div>
+             </mat-icon>
 
             </th>
             <td>
               {{goblin?.combate}}
             </td>
-
-            <th  colspan="3" rowspan="6">
+            <td colspan="3" >
               <strong>Equipamento:</strong>
-              <div class="mb-2" [title]="equipamento?.descricao || equipamento?.ataque " *ngFor="let equipamento of goblin.equipamentos;">
+            </td>
+          </tr>
+          <tr>
+            <th title="Número de dados que você rolará quando fizer alguma ação fora de combate" colspan="2">
+              Habilidade:
+            </th>
+            <td>
+             {{goblin?.habilidade}}
+            </td>
+            <th  colspan="3" rowspan="5">
+              
+              <div class="mb-2" [title]="equipamento?.descricao || equipamento?.ataque" *ngFor="let equipamento of goblin.equipamentos;">
                 <span *ngIf="equipamento?.durabilidade != undefined; else templateArma;">
-                  {{equipamento?.nome}}: protege {{equipamento?.durabilidade}} hits
+                  {{equipamento?.nome}}: protege  
+                  <span >
+                    <select [value]="equipamento?.durabilidade">
+                      <option value="0"> 0 </option>
+                      <option value="1"> 1 </option>
+                      <option value="2"> 2 </option>
+                      <option value="3"> 3 </option>
+                      <option value="4"> 4 </option>
+                    </select>
+                  </span> hits
                   <span class="ms-1" *ngIf="equipamento?.especial && equipamento?.especial.length > 0">
                     <span [title]="especial?.descricao" *ngFor="let especial of equipamento.especial;" class="px-1 me-1 mb-1 border rounded border-solid border-black">
                       {{especial.nome}}
@@ -91,6 +118,7 @@
                       {{especial.nome}}
                       <span *ngIf="especial?.quantidade != undefined">
                         <select [value]="especial?.quantidade">
+                          <option value="0"> 0 </option>
                           <option value="1"> 1 </option>
                           <option value="2"> 2 </option>
                           <option value="3"> 3 </option>
@@ -116,26 +144,19 @@
 
               </div>
             </th>
-
           </tr>
-          <tr>
-            <th title="Número de dados que você rolará quando fizer alguma ação fora de combate" colspan="2">
-              Habilidade:
 
-            </th>
-            <td>
-             {{goblin?.habilidade}}
-            </td>
-          </tr>
           <tr>
             <th title=" Número de dados que você rolará para saber se seu personagem conhece algo"  colspan="2">
               Noção:
             </th>
             <td>
              {{goblin?.nocao}}
-            </td>
+            </td>  
+            
 
           </tr>
+
           <tr>
             <th title="Quantidade máxima de ferimentos que seu personagem pode ter antes de morrer" colspan="2">
               Vitalidade:
@@ -146,6 +167,7 @@
             </td>
 
           </tr>
+         
           <tr>
             <th colspan="3" >
               Ferimentos:
@@ -162,6 +184,7 @@
             </th>
 
           </tr>
+          
 
           <tr>
             <th colspan="6">

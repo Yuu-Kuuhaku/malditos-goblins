@@ -16,20 +16,20 @@ export class Goblin implements GoblinInterface {
   }
   public set nivel(value: number) {
 
-    if(value == 4) {
+    if (value == 4) {
       this.isDead = true;
       return;
-    } else if(value > this.nivel){
+    } else if (value > this.nivel) {
       let poder: Poder = ocupacoes.find(item => item.nome == this.ocupacao)?.poderes.find(item => item.nivel == value) as Poder;
-      if(poder){
+      if (poder) {
         this.poderes.push(
           poder
         )
       }
-    } else if(value < this.nivel) {
+    } else if (value < this.nivel) {
       let poderIndex = this.poderes.findIndex(item => item.nivel == this.nivel)
 
-      if(poderIndex > -1){
+      if (poderIndex > -1) {
         this.poderes.splice(poderIndex, 1)
       }
     }
@@ -52,28 +52,28 @@ export class Goblin implements GoblinInterface {
   public set descritor(value: Descritor) {
     this._descritor = value;
   }
-  private _caracteristicas: Caracteristica[] =[];
+  private _caracteristicas: Caracteristica[] = [];
   public get caracteristicas(): Caracteristica[] {
     return this._caracteristicas;
   }
   public set caracteristicas(value: Caracteristica[]) {
     this._caracteristicas = value;
   }
-  private _combate: number= 2;
+  private _combate: number = 2;
   public get combate(): number {
     return this._combate;
   }
   public set combate(value: number) {
     this._combate = value;
   }
-  private _habilidade: number= 2;
+  private _habilidade: number = 2;
   public get habilidade(): number {
     return this._habilidade;
   }
   public set habilidade(value: number) {
     this._habilidade = value;
   }
-  private _nocao: number= 2;
+  private _nocao: number = 2;
   public get nocao(): number {
     return this._nocao;
   }
@@ -135,23 +135,18 @@ export class Goblin implements GoblinInterface {
 
   constructor() {
     this.init();
-
   }
-
-
-
-
 
   init() {
-    nomes[this.generateD6() -1][this.generateD6() -1]?.modificador(this);
-    ocupacoes[this.generateD6() -1].modificador(this);
-    descritores[this.generateD6() -1].modificador(this);
-    caracteristicas[this.generateD6() -1][this.generateD6() -1 ].modificador(this);
+    nomes[this.generateD6() - 1][this.generateD6() - 1]?.modificador(this);
+    ocupacoes[this.generateD6() - 1].modificador(this);
+    descritores[this.generateD6() - 1].modificador(this);
+    caracteristicas[this.generateD6() - 1][this.generateD6() - 1].modificador(this);
   }
 
-  public generateD6(){
+  public generateD6() {
     let dice = new DiceRoll('1d6');
-    this.dados.push({value: dice.total});
+    this.dados.push({ value: dice.total });
     return dice.total;
   }
 
@@ -401,9 +396,9 @@ const ocupacoes = [
         pergunta: "Escolha o equipamento de Mercenário",
         hasOptions: true,
         options: [
-          {label: "Espada e Escudo", value: "Espada e Escudo"},
-          {label: "2 Machadinhas", value: "2 Machadinhas"},
-          {label: "Machadão", value: "Machadão"},
+          { label: "Espada e Escudo", value: "Espada e Escudo" },
+          { label: "2 Machadinhas", value: "2 Machadinhas" },
+          { label: "Machadão", value: "Machadão" },
         ],
         resolve: (resp: string) => {
           switch (resp) {
@@ -414,17 +409,17 @@ const ocupacoes = [
                 uso: "Uma mão",
                 bonus: "+2d"
               },
-              {
-                nome: "Escudo",
-                uso: "Uma mão",
-                durabilidade: 2
-              }
+                {
+                  nome: "Escudo",
+                  uso: "Uma mão",
+                  durabilidade: 2
+                }
               );
               break;
             case '2 Machadinhas':
               goblin.equipamentos.push({
                 nome: "Machadinha",
-                uso:"Uma mão",
+                uso: "Uma mão",
                 ataque: "Corporal",
                 bonus: "+2d",
                 especial: [
@@ -434,24 +429,24 @@ const ocupacoes = [
                   }
                 ]
               },
-              {
-                nome: "Machadinha",
-                uso:"Uma mão",
-                ataque: "Corporal",
-                bonus: "+2d",
-                especial: [
-                  {
-                    nome: "Arremesso",
-                    descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
-                  }
-                ]
-              })
+                {
+                  nome: "Machadinha",
+                  uso: "Uma mão",
+                  ataque: "Corporal",
+                  bonus: "+2d",
+                  especial: [
+                    {
+                      nome: "Arremesso",
+                      descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
+                    }
+                  ]
+                })
 
               break;
             case 'Machadão':
               goblin.equipamentos.push({
                 nome: "Machadão",
-                uso:"Duas mãos",
+                uso: "Duas mãos",
                 ataque: "Corporal",
                 bonus: "+3d"
               })
@@ -497,9 +492,9 @@ const ocupacoes = [
         pergunta: "Escolha o equipamento de Caçador",
         hasOptions: true,
         options: [
-          {label: "3 Adagas", value: "3 Adagas"},
-          {label: "Arco de Caça", value: "Arco de Caça"},
-          {label: "Pistola e Chapéu", value: "Pistola e Chapéu"},
+          { label: "3 Adagas", value: "3 Adagas" },
+          { label: "Arco de Caça", value: "Arco de Caça" },
+          { label: "Pistola e Chapéu", value: "Pistola e Chapéu" },
         ],
         resolve: (resp: string) => {
           switch (resp) {
@@ -516,37 +511,37 @@ const ocupacoes = [
                   }
                 ]
               },
-              {
-                nome: "Adaga",
-                ataque: "Corporal",
-                uso: "Uma mão",
-                bonus: "+1d",
-                especial: [
-                  {
-                    nome: "Arremesso",
-                    descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
-                  }
-                ]
-              },
-              {
-                nome: "Adaga",
-                ataque: "Corporal",
-                uso: "Uma mão",
-                bonus: "+1d",
-                especial: [
-                  {
-                    nome: "Arremesso",
-                    descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
-                  }
-                ]
-              },
+                {
+                  nome: "Adaga",
+                  ataque: "Corporal",
+                  uso: "Uma mão",
+                  bonus: "+1d",
+                  especial: [
+                    {
+                      nome: "Arremesso",
+                      descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
+                    }
+                  ]
+                },
+                {
+                  nome: "Adaga",
+                  ataque: "Corporal",
+                  uso: "Uma mão",
+                  bonus: "+1d",
+                  especial: [
+                    {
+                      nome: "Arremesso",
+                      descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
+                    }
+                  ]
+                },
 
               );
               break;
             case 'Arco de Caça':
               goblin.equipamentos.push({
                 nome: "Arco e Flechas",
-                uso:"Duas mãos",
+                uso: "Duas mãos",
                 ataque: "Distância",
                 bonus: "+2d",
                 especial: [
@@ -559,36 +554,36 @@ const ocupacoes = [
               },);
               break;
             case 'Pistola e Chapéu':
-                goblin.equipamentos.push({
-                  nome: "Pistola",
-                  uso: "Uma mão",
-                  ataque: "Distância",
-                  bonus: "+2d",
-                  especial: [
-                    {
-                      nome: "Recarga",
-                      descricao: "Depois de atacar, deve gastar um turno recarregando para atacar novamente"
-                    },
-                    {
-                      nome: "Munição",
-                      descricao: "Você tem um limite de X ataques. Precisará conseguir mais munição para poder atacar",
-                      quantidade: 5
-                    }
+              goblin.equipamentos.push({
+                nome: "Pistola",
+                uso: "Uma mão",
+                ataque: "Distância",
+                bonus: "+2d",
+                especial: [
+                  {
+                    nome: "Recarga",
+                    descricao: "Depois de atacar, deve gastar um turno recarregando para atacar novamente"
+                  },
+                  {
+                    nome: "Munição",
+                    descricao: "Você tem um limite de X ataques. Precisará conseguir mais munição para poder atacar",
+                    quantidade: 5
+                  }
 
-                  ]
-                },
-                {
-                  nome: "Chapéu",
-                  uso:"Cabeça",
-                  durabilidade: 0,
-                  especial: [
-                    {
-                      nome: "Sorte",
-                      descricao: "Se estiver na sua cabeça, você pode destruir este item quando receber um ataque à distância e ignorar todo o dano"
-                    }
-                  ]
-                })
-                break;
+                ]
+              },
+              {
+                nome: "Chapéu",
+                uso: "Cabeça",
+                durabilidade: 0,
+                especial: [
+                  {
+                    nome: "Sorte",
+                    descricao: "Se estiver na sua cabeça, você pode destruir este item quando receber um ataque à distância e ignorar todo o dano"
+                  }
+                ]
+              })
+              break;
             default:
               break;
           }
@@ -630,9 +625,9 @@ const ocupacoes = [
         pergunta: "Escolha o equipamento de Gatuno",
         hasOptions: true,
         options: [
-          {label: "3 Adagas", value: "3 Adagas"},
-          {label: "Rapieira e Broquel", value: "Rapieira e Broquel"},
-          {label: "Pistola e Chapéu", value: "Pistola e Chapéu"},
+          { label: "3 Adagas", value: "3 Adagas" },
+          { label: "Rapieira e Broquel", value: "Rapieira e Broquel" },
+          { label: "Pistola e Chapéu", value: "Pistola e Chapéu" },
         ],
         resolve: (resp: string) => {
           switch (resp) {
@@ -649,30 +644,30 @@ const ocupacoes = [
                   }
                 ]
               },
-              {
-                nome: "Adaga",
-                ataque: "Corporal",
-                uso: "Uma mão",
-                bonus: "+1d",
-                especial: [
-                  {
-                    nome: "Arremesso",
-                    descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
-                  }
-                ]
-              },
-              {
-                nome: "Adaga",
-                ataque: "Corporal",
-                uso: "Uma mão",
-                bonus: "+1d",
-                especial: [
-                  {
-                    nome: "Arremesso",
-                    descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
-                  }
-                ]
-              },
+                {
+                  nome: "Adaga",
+                  ataque: "Corporal",
+                  uso: "Uma mão",
+                  bonus: "+1d",
+                  especial: [
+                    {
+                      nome: "Arremesso",
+                      descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
+                    }
+                  ]
+                },
+                {
+                  nome: "Adaga",
+                  ataque: "Corporal",
+                  uso: "Uma mão",
+                  bonus: "+1d",
+                  especial: [
+                    {
+                      nome: "Arremesso",
+                      descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
+                    }
+                  ]
+                },
 
               );
               break;
@@ -680,7 +675,7 @@ const ocupacoes = [
               goblin.equipamentos.push(
                 {
                   nome: "Rapieira",
-                  uso:"Uma mão",
+                  uso: "Uma mão",
                   ataque: "Corporal",
                   bonus: "+2d",
                 },
@@ -710,17 +705,17 @@ const ocupacoes = [
 
                 ]
               },
-              {
-                nome: "Chapéu",
-                uso:"Cabeça",
-                durabilidade: 0,
-                especial: [
-                  {
-                    nome: "Sorte",
-                    descricao: "Se estiver na sua cabeça, você pode destruir este item quando receber um ataque à distância e ignorar todo o dano"
-                  }
-                ]
-              })
+                {
+                  nome: "Chapéu",
+                  uso: "Cabeça",
+                  durabilidade: 0,
+                  especial: [
+                    {
+                      nome: "Sorte",
+                      descricao: "Se estiver na sua cabeça, você pode destruir este item quando receber um ataque à distância e ignorar todo o dano"
+                    }
+                  ]
+                })
               break;
             default:
               break;
@@ -763,9 +758,9 @@ const ocupacoes = [
         pergunta: "Escolha o equipamento de Líder",
         hasOptions: true,
         options: [
-          {label: "Espada e Medalhas de Guerra", value: "Espada e Medalhas de Guerra"},
-          {label: "Lança e Elmo", value: "Lança e Elmo"},
-          {label: "Espadona", value: "Espadona"},
+          { label: "Espada e Medalhas de Guerra", value: "Espada e Medalhas de Guerra" },
+          { label: "Lança e Elmo", value: "Lança e Elmo" },
+          { label: "Espadona", value: "Espadona" },
 
         ],
         resolve: (resp: string) => {
@@ -777,28 +772,28 @@ const ocupacoes = [
                 uso: "Uma mão",
                 bonus: "+2d"
               },
-              {
-                nome: "Medalhas de guerra",
-              }
+                {
+                  nome: "Medalhas de guerra",
+                }
               );
               break;
             case 'Lança e Elmo':
               goblin.equipamentos.push({
                 nome: "Lança",
-                uso:"Duas mãos",
+                uso: "Duas mãos",
                 ataque: "Corporal",
                 bonus: "+3d",
               },
-              {
-                nome: "Elmo",
-                uso: 'Cabeça',
-                durabilidade: 2
-              })
+                {
+                  nome: "Elmo",
+                  uso: 'Cabeça',
+                  durabilidade: 2
+                })
               break;
             case 'Espadona':
               goblin.equipamentos.push({
                 nome: "Espadona",
-                uso:"Duas mãos",
+                uso: "Duas mãos",
                 ataque: "Corporal",
                 bonus: "+3d",
               })
@@ -844,9 +839,9 @@ const ocupacoes = [
         pergunta: "Escolha o equipamento de Incendiário",
         hasOptions: true,
         options: [
-          {label: "Barril de Pólvora", value: "Barril de Pólvora"},
-          {label: "Pistola e Galinha Explosiva", value: "Pistola e Galinha Explosiva"},
-          {label: "Bacamarte e Chapéu", value: "Bacamarte e Chapéu"},
+          { label: "Barril de Pólvora", value: "Barril de Pólvora" },
+          { label: "Pistola e Galinha Explosiva", value: "Pistola e Galinha Explosiva" },
+          { label: "Bacamarte e Chapéu", value: "Bacamarte e Chapéu" },
 
         ],
         resolve: (resp: string) => {
@@ -877,21 +872,21 @@ const ocupacoes = [
 
                 ]
               },
-              {
-                nome: "Galinha Explosiva",
-                descricao: "Você pode arremessá-la ou deixá-la andando. Explode em dois turnos. Quando explode, causa 3 ferimentos a todos em sua volta.",
-                especial: [
-                  {
-                    nome: "Arremesso",
-                    descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
-                  }
-                ]
-              })
+                {
+                  nome: "Galinha Explosiva",
+                  descricao: "Você pode arremessá-la ou deixá-la andando. Explode em dois turnos. Quando explode, causa 3 ferimentos a todos em sua volta.",
+                  especial: [
+                    {
+                      nome: "Arremesso",
+                      descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância",
+                    }
+                  ]
+                })
               break;
             case 'Bacamarte e Chapéu':
               goblin.equipamentos.push({
                 nome: "Bacamarte",
-                uso:"Duas mãos",
+                uso: "Duas mãos",
                 ataque: "Distância",
                 bonus: "+3d",
                 especial: [
@@ -907,17 +902,17 @@ const ocupacoes = [
 
                 ]
               },
-              {
-                nome: "Chapéu",
-                uso:"Cabeça",
-                durabilidade: 0,
-                especial: [
-                  {
-                    nome: "Sorte",
-                    descricao: "Se estiver na sua cabeça, você pode destruir este item quando receber um ataque à distância e ignorar todo o dano"
-                  }
-                ]
-              })
+                {
+                  nome: "Chapéu",
+                  uso: "Cabeça",
+                  durabilidade: 0,
+                  especial: [
+                    {
+                      nome: "Sorte",
+                      descricao: "Se estiver na sua cabeça, você pode destruir este item quando receber um ataque à distância e ignorar todo o dano"
+                    }
+                  ]
+                })
               break;
             default:
               break;
@@ -960,9 +955,9 @@ const ocupacoes = [
         pergunta: "Escolha o equipamento de Bruxo",
         hasOptions: true,
         options: [
-          {label: "Cajado", value: "Cajado"},
-          {label: "Varinha e Cachecol", value: "Varinha e Cachecol"},
-          {label: "Vassoura e Chapéu", value: "Vassoura e Chapéu"},
+          { label: "Cajado", value: "Cajado" },
+          { label: "Varinha e Cachecol", value: "Varinha e Cachecol" },
+          { label: "Vassoura e Chapéu", value: "Vassoura e Chapéu" },
         ],
         resolve: (resp: string) => {
           switch (resp) {
@@ -1003,7 +998,7 @@ const ocupacoes = [
             case 'Vassoura e Chapéu':
               goblin.equipamentos.push({
                 nome: "Vassoura",
-                uso:"Duas mãos",
+                uso: "Duas mãos",
                 ataque: "Corporal",
                 bonus: "+1d",
                 especial: [
@@ -1014,17 +1009,17 @@ const ocupacoes = [
                 ]
 
               },
-              {
-                nome: "Chapéu",
-                uso:"Cabeça",
-                durabilidade: 0,
-                especial: [
-                  {
-                    nome: "Sorte",
-                    descricao: "Se estiver na sua cabeça, você pode destruir este item quando receber um ataque à distância e ignorar todo o dano"
-                  }
-                ]
-              })
+                {
+                  nome: "Chapéu",
+                  uso: "Cabeça",
+                  durabilidade: 0,
+                  especial: [
+                    {
+                      nome: "Sorte",
+                      descricao: "Se estiver na sua cabeça, você pode destruir este item quando receber um ataque à distância e ignorar todo o dano"
+                    }
+                  ]
+                })
               break;
             default:
               break;
@@ -1038,13 +1033,13 @@ const ocupacoes = [
         minLength: 3,
         maxLength: 3,
         options: [
-          {label: "Fogo", value: "Fogo"},
-          {label: "Gelo", value: "Gelo"},
-          {label: "Relâmpago", value: "Relâmpago"},
-          {label: "Troca", value: "Troca"},
-          {label: "Morte", value: "Morte"},
-          {label: "Cura", value: "Cura"},
-          {label: "Planta", value: "Planta"},
+          { label: "Fogo", value: "Fogo" },
+          { label: "Gelo", value: "Gelo" },
+          { label: "Relâmpago", value: "Relâmpago" },
+          { label: "Troca", value: "Troca" },
+          { label: "Morte", value: "Morte" },
+          { label: "Cura", value: "Cura" },
+          { label: "Planta", value: "Planta" },
         ],
         resolve: (resp: string[]) => {
           goblin.magias = resp
@@ -1060,7 +1055,6 @@ const ocupacoes = [
       )
 
     },
-
     poderes: [
       {
         nome: "Magias",
@@ -1169,7 +1163,7 @@ const caracteristicas = [
   [
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
+        goblin.caracteristicas.push({
           nome: 'Bomba-relógio',
           descricao: 'Você pode explodir a qualquer momento. Sempre que alguém fala algo relacionado com fogo ou explosão role um dado. Se cair “1”, você explode.',
         })
@@ -1177,50 +1171,50 @@ const caracteristicas = [
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-        nome: 'Minicabeça',
-        descricao: 'Você possui uma cabeça muito pequena. Seus olhos parecem que vão saltar do rosto (talvez vão!) e você não pode usar elmos.',
+        goblin.caracteristicas.push({
+          nome: 'Minicabeça',
+          descricao: 'Você possui uma cabeça muito pequena. Seus olhos parecem que vão saltar do rosto (talvez vão!) e você não pode usar elmos.',
         })
 
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Apêndice extra',
-      descricao:
-        'Você tem dois apêndices. Você tem o dobro de chance de ter apendicite.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Apêndice extra',
+          descricao:
+            'Você tem dois apêndices. Você tem o dobro de chance de ter apendicite.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Poros fedidos',
-      descricao:
-        'Você exala um odor extremamente desagradável e ninguém consegue ficar perto de você por muito tempo sem ficar nauseado.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Poros fedidos',
+          descricao:
+            'Você exala um odor extremamente desagradável e ninguém consegue ficar perto de você por muito tempo sem ficar nauseado.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Verdura',
-      descricao: 'Você acha que é uma planta e insiste em fazer fotossíntese.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Verdura',
+          descricao: 'Você acha que é uma planta e insiste em fazer fotossíntese.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        caracteristicas[goblin.generateD6() -1][goblin.generateD6() -1 ].modificador(goblin);
-        caracteristicas[goblin.generateD6() -1][goblin.generateD6() -1 ].modificador(goblin);
+        caracteristicas[goblin.generateD6() - 1][goblin.generateD6() - 1].modificador(goblin);
+        caracteristicas[goblin.generateD6() - 1][goblin.generateD6() - 1].modificador(goblin);
       }
     }
   ],
   [
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
+        goblin.caracteristicas.push({
           nome: 'Cinzento',
           descricao:
             'Sua pele é cinza e enrugada. Você pode ter barba branca comprida se quiser.',
@@ -1229,42 +1223,42 @@ const caracteristicas = [
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Cabeção',
-      descricao:
-        'Você tem um cabeção que contém um cérebro gigante. Você pode saber de qualquer coisa e conhecimento obscuro, mas não pode usar elmos ou bonés.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Cabeção',
+          descricao:
+            'Você tem um cabeção que contém um cérebro gigante. Você pode saber de qualquer coisa e conhecimento obscuro, mas não pode usar elmos ou bonés.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Orelha extra',
-      descricao: 'Você possui uma orelha extra embaixo do sovaco.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Orelha extra',
+          descricao: 'Você possui uma orelha extra embaixo do sovaco.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Pintas',
-      descricao:
-        'Você possui pintas cor de rosa espalhadas por todo o corpo. Algumas têm formato de coração.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Pintas',
+          descricao:
+            'Você possui pintas cor de rosa espalhadas por todo o corpo. Algumas têm formato de coração.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Minion',
-      descricao:
-        'Você gosta de usar camiseta amarela e odeia qualquer um que use vermelho. Acredita em qualquer mentira.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Minion',
+          descricao:
+            'Você gosta de usar camiseta amarela e odeia qualquer um que use vermelho. Acredita em qualquer mentira.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
+        goblin.caracteristicas.push({
           nome: 'Fosforescente',
           descricao:
             'Sua pele é de um tom verde fosforescente. Você brilha no escuro.',
@@ -1275,7 +1269,7 @@ const caracteristicas = [
   [
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
+        goblin.caracteristicas.push({
           nome: 'Amaldiçoado',
           descricao:
             'Você acha que é um humano que foi amaldiçoado e precisa quebrar a maldição. Mas, na verdade, você é só um goblin perdido.',
@@ -1284,43 +1278,43 @@ const caracteristicas = [
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Linguão',
-      descricao:
-        'Você possui uma língua gigante. Você não tem muito controle sobre ela, então ela vive fora da sua boca babando e impedindo que você fale direito.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Linguão',
+          descricao:
+            'Você possui uma língua gigante. Você não tem muito controle sobre ela, então ela vive fora da sua boca babando e impedindo que você fale direito.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Nariz extra',
-      descricao: 'Você possui um nariz extra no cotovelo.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Nariz extra',
+          descricao: 'Você possui um nariz extra no cotovelo.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Listras',
-      descricao: 'Você possui listras azuis por todo o corpo.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Listras',
+          descricao: 'Você possui listras azuis por todo o corpo.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Galináceo',
-      descricao: 'Você acha que é uma galinha e vive cacarejando e ciscando.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Galináceo',
+          descricao: 'Você acha que é uma galinha e vive cacarejando e ciscando.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Colorido',
-      descricao:
-        'Sua pele tem vários tons e cores. Toda manhã, as cores mudam de lugar.',
+        goblin.caracteristicas.push({
+          nome: 'Colorido',
+          descricao:
+            'Sua pele tem vários tons e cores. Toda manhã, as cores mudam de lugar.',
         })
       }
     },
@@ -1328,114 +1322,114 @@ const caracteristicas = [
   [
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Tom bélico',
-      descricao:
-        'Sempre que você conversa com alguém, este se sentirá ofendido sem razão.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Tom bélico',
+          descricao:
+            'Sempre que você conversa com alguém, este se sentirá ofendido sem razão.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Olho gigante',
-      descricao: 'Um dos seus olhos é gigante e raramente pisca.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Olho gigante',
+          descricao: 'Um dos seus olhos é gigante e raramente pisca.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Olhos extras',
-      descricao:
-        'Você possui 1d6 olhos a mais na cabeça (em vários lugares diferentes).',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Olhos extras',
+          descricao:
+            'Você possui 1d6 olhos a mais na cabeça (em vários lugares diferentes).',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Pompom',
-      descricao:
-        'Você possui um pequeno rabo com um pompom na ponta, como de um poodle bem tosado.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Pompom',
+          descricao:
+            'Você possui um pequeno rabo com um pompom na ponta, como de um poodle bem tosado.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Peixoso',
-      descricao: 'Você acha que é um peixe e precisa estar sempre molhado.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Peixoso',
+          descricao: 'Você acha que é um peixe e precisa estar sempre molhado.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( { nome: 'Amarelo', descricao: 'Sua pele é amarela.' })
+        goblin.caracteristicas.push({ nome: 'Amarelo', descricao: 'Sua pele é amarela.' })
       }
     }
   ],
   [
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Flutulência',
-      descricao:
-        'Você vive se peidando, mas se quiser pode usar isso para dar saltos de até 6 metros de altura ou correr até o dobro da velocidade.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Flutulência',
+          descricao:
+            'Você vive se peidando, mas se quiser pode usar isso para dar saltos de até 6 metros de altura ou correr até o dobro da velocidade.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Pés gigantes',
-      descricao:
-        'Seus pés são gigantes. Você não pode usar nenhum tipo de calçado.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Pés gigantes',
+          descricao:
+            'Seus pés são gigantes. Você não pode usar nenhum tipo de calçado.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Braço extra',
-      descricao: 'Você tem um braço extra que sai do meio das suas costas.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Braço extra',
+          descricao: 'Você tem um braço extra que sai do meio das suas costas.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Chifre',
-      descricao:
-        'Você tem um grande e imponente chifre de unicórnio saindo da sua testa.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Chifre',
+          descricao:
+            'Você tem um grande e imponente chifre de unicórnio saindo da sua testa.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Felino',
-      descricao:
-        'Você acha que é um gato e vive se lambendo, miando e ronronando.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Felino',
+          descricao:
+            'Você acha que é um gato e vive se lambendo, miando e ronronando.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( { nome: 'Azul', descricao: 'Sua pele é azul.' })
+        goblin.caracteristicas.push({ nome: 'Azul', descricao: 'Sua pele é azul.' })
       }
     }
   ],
   [
     {
       modificador: (goblin: GoblinInterface) => {
-        caracteristicas[goblin.generateD6() -1][goblin.generateD6() -1 ].modificador(goblin);
-        caracteristicas[goblin.generateD6() -1][goblin.generateD6() -1 ].modificador(goblin);
+        caracteristicas[goblin.generateD6() - 1][goblin.generateD6() - 1].modificador(goblin);
+        caracteristicas[goblin.generateD6() - 1][goblin.generateD6() - 1].modificador(goblin);
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
+        goblin.caracteristicas.push({
           nome: 'Mão gigante',
           descricao:
             'Uma das suas mãos tem o dobro do tamanho de uma mão de goblin comum.',
@@ -1444,32 +1438,344 @@ const caracteristicas = [
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Cabeça extra',
-      descricao:
-        'Você tem duas cabeças. O que não quer dizer muita coisa, já que duas cabeças de goblin não pensam melhor que uma.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Cabeça extra',
+          descricao:
+            'Você tem duas cabeças. O que não quer dizer muita coisa, já que duas cabeças de goblin não pensam melhor que uma.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( { nome: 'Cicatrizes', descricao: 'Você tem cicatrizes por todo o corpo.' })
+        goblin.caracteristicas.push({ nome: 'Cicatrizes', descricao: 'Você tem cicatrizes por todo o corpo.' })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( {
-      nome: 'Aracnídeo',
-      descricao:
-        'Você consegue escalar superfícies lisas e pode defecar cordas de seda.',
-    })
+        goblin.caracteristicas.push({
+          nome: 'Aracnídeo',
+          descricao:
+            'Você consegue escalar superfícies lisas e pode defecar cordas de seda.',
+        })
       }
     },
     {
       modificador: (goblin: GoblinInterface) => {
-        goblin.caracteristicas.push( { nome: 'Vermelho', descricao: 'Sua pele é vermelha.' })
+        goblin.caracteristicas.push({ nome: 'Vermelho', descricao: 'Sua pele é vermelha.' })
       }
     }
   ]
 ];
+
+const armas = [
+  { nome: "Adaga", uso: "Uma mão", ataque: "Corporal", bonus: "+1d", especial: [{ nome: "Arremesso", descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância", }] },
+  {
+    nome: "Arco e Flecha", tipo_arma: "Duas mãos", tipo_dano: "Distância", bonus: "+2d", especial: [
+      {
+        nome: "Munição",
+        descricao: "Você tem um limite de X ataques. Precisará conseguir mais munição para poder atacar",
+        quantidade: 10
+      }
+    ]
+  },
+  {
+    nome: "Bacamarte",
+    uso: "Duas mãos",
+    ataque: "Distância",
+    bonus: "+3d",
+    especial: [
+      {
+        nome: "Recarga",
+        descricao: "Depois de atacar, deve gastar um turno recarregando para atacar novamente"
+      },
+      {
+        nome: "Munição",
+        descricao: "Você tem um limite de X ataques. Precisará conseguir mais munição para poder atacar",
+        quantidade: 5
+      }
+
+    ]
+  },
+  {
+    nome: "Besta",
+    uso: "Duas mãos",
+    ataque: "Distância",
+    bonus: "+3d",
+    especial: [
+      {
+        nome: "Recarga",
+        descricao: "Depois de atacar, deve gastar um turno recarregando para atacar novamente"
+      },
+      {
+        nome: "Munição",
+        descricao: "Você tem um limite de X ataques. Precisará conseguir mais munição para poder atacar",
+        quantidade: 6
+      }
+
+    ]
+  },
+  {
+    nome: "Cajado",
+    uso: "Duas mãos",
+    ataque: "Corporal",
+    bonus: "+1d",
+    especial: [
+      {
+        nome: "Condutor Mágico",
+        descricao: "Pode conjurar magias através deste item"
+      }
+    ]
+  },
+  { 
+    nome: "Clava", 
+    uso: "Uma mão", 
+    ataque: "Corporal", 
+    bonus: "+1d", 
+  },
+  { 
+    nome: "Espada", 
+    uso: "Uma mão", 
+    ataque: "Corporal", 
+    bonus: "+2d", 
+  },
+  { 
+    nome: "Espada de Madeira", 
+    uso: "Uma mão", 
+    ataque: "Corporal", 
+    bonus: "+2d", 
+  },
+  { 
+    nome: "Espadona", 
+    uso: "Duas mãos", 
+    ataque: "Corporal", 
+    bonus: "+3d", 
+  },
+  {
+    nome: "Estilingue",
+    uso: "Duas mãos",
+    ataque: "Distância",
+    bonus: "+0d",
+    especial: [
+      {
+        nome: "Recarga",
+        descricao: "Depois de atacar, deve gastar um turno recarregando para atacar novamente"
+      },
+    ]
+  },
+  { 
+    nome: "Faca", 
+    uso: "Uma mão", 
+    ataque: "Corporal", 
+    bonus: "+1d", 
+  },
+  { 
+    nome: "Forcado", 
+    uso: "Duas mãos", 
+    ataque: "Corporal", 
+    bonus: "+2d", 
+  },
+  { 
+    nome: "Gadanha", 
+    uso: "Duas mãos", 
+    ataque: "Corporal", 
+    bonus: "+3d", 
+  },
+  { 
+    nome: "Lança", 
+    uso: "Duas mãos", 
+    ataque: "Corporal", 
+    bonus: "+3d", 
+  },
+  { 
+    nome: "Machadão", 
+    uso: "Duas mãos", 
+    ataque: "Corporal", 
+    bonus: "+3d", 
+  },
+  { 
+    nome: "Machadinha", 
+    uso: "Uma mão", 
+    ataque: "Corporal", 
+    bonus: "+2d", 
+    especial: [
+      { 
+        nome: "Arremesso", 
+        descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância", 
+      }
+    ]
+  },
+  { 
+    nome: "Martelão", 
+    uso: "Duas mãos", 
+    ataque: "Corporal", 
+    bonus: "+3d", 
+  },
+  {
+    nome: "Pistola",
+    uso: "Uma mão",
+    ataque: "Distância",
+    bonus: "+2d",
+    especial: [
+      {
+        nome: "Recarga",
+        descricao: "Depois de atacar, deve gastar um turno recarregando para atacar novamente"
+      },
+      {
+        nome: "Munição",
+        descricao: "Você tem um limite de X ataques. Precisará conseguir mais munição para poder atacar",
+        quantidade: 5
+      }
+
+    ]
+  },
+  { 
+    nome: "Rapieira", 
+    uso: "Uma mão", 
+    ataque: "Corporal", 
+    bonus: "+2d", 
+  },
+  { 
+    nome: "Varinha", 
+    uso: "Uma mão", 
+    ataque: "Corporal", 
+    bonus: "+0d", 
+  },
+  { 
+    nome: "Vassoura", 
+    uso: "Duas mãos", 
+    ataque: "Corporal", 
+    bonus: "+1d", 
+    especial: [
+      {
+        nome: "Condutor Mágico",
+        descricao: "Pode conjurar magias através deste item"
+      }
+    ]
+  },
+];
+
+const protecoes = [
+{
+  nome: 'Broquel',
+  uso: 'Uma mão',
+  durabilidade: 1
+},
+{
+  nome: "Cachecol",
+  uso: "Pescoço",
+  durabilidade: 0,
+  especial: [
+    {
+      nome: "Arcano",
+      descricao: "Quem estiver vestindo pode rolar 1 dado a mais em testes para conjurar magias",
+    }
+  ],
+},
+{
+  nome: "Chapéu",
+  uso: "Cabeça",
+  durabilidade: 0,
+  especial: [
+    {
+      nome: "Sorte",
+      descricao: "Se estiver na sua cabeça, você pode destruir este item quando receber um ataque à distância e ignorar todo o dano"
+    }
+  ]
+},
+{
+  nome: 'Cota de Malha',
+  uso: 'Tronco',
+  durabilidade: 2
+},
+{
+  nome: 'Elmo',
+  uso: 'Cabeça',
+  durabilidade: 2
+},
+{
+  nome: 'Escudo',
+  uso: 'Uma mão',
+  durabilidade: 2
+},
+{
+  nome: 'Panela',
+  uso: 'Cabeça',
+  durabilidade: 1
+},
+{
+  nome: 'Peitoral',
+  uso: 'Tronco',
+  durabilidade: 3
+},
+{
+  nome: 'Penico',
+  uso: 'Cabeça',
+  durabilidade: 1,
+  especial: [
+    {
+      nome: "Sorte",
+      descricao: "Se estiver na sua cabeça, você pode destruir este item quando receber um ataque à distância e ignorar todo o dano"
+    }
+  ]
+},
+{
+  nome: 'Tampa de Panela',
+  uso: 'Uma mão',
+  durabilidade: 1
+},
+
+]
+
+const equipamentos = [
+  { 
+    nome: "Aljava",
+    descricao: "Possui flechas suficientes para duplicar a quantidade de munição de um arco ou besta"
+  },
+  {
+    nome: "Banquete",
+    descricao: "Comida suficiente pra alimentar um bando de goblins por 1d6 dias",
+  },
+  {
+    nome: "Barril de Cerveja",
+    descricao: "O suficiente pra embebedar uma festa de goblins inteira",
+  },
+  {
+    nome: "Barril de Pólvora",
+    descricao: "Se for aceso, vai explodir e causar 4 ferimentos a todos em sua volta e 2 ferimentos a todos a até 5 metros. Pode usá-lo para completar a munição de até 3 armas de fogo",
+  },
+  {
+    nome: "Corda e Gancho",
+    descricao: "Para escalar paredes e muralhas. Adiciona 2 dados no teste de Habilidade para escalar"
+  },
+  {
+    nome: "Guarda-chuva",
+    descricao: "Não se molhará se chover. Cobre até 4 goblins. Ajuda a diminuir a queda (-1 ferimento)"
+  },
+  {
+    nome: "Galinha Explosiva",
+    descricao: "Você pode arremessá-la ou deixá-la andando. Explode em dois turnos. Quando explode, causa 3 ferimentos a todos em sua volta",
+    especial: [
+      { 
+        nome: "Arremesso", 
+        descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância", 
+      }
+    ]
+  },
+  {
+    nome: "Livro Estranho",
+    descricao: "O que dá pra fazer? Não sei. Aquele que conseguir 2 hits em um teste de Noção pode conseguir ler. Existe 1 chance em 6 de ser um livro de magia. Se for, sorteie uma magia da lista"
+  },
+  {
+    nome: "Roupa Chique",
+    descricao: "Um goblin nojento vestindo isso ainda fica parecendo um goblin nojento, mas pelo menos ajuda a melhorar a autoestima dele"
+  },
+  {
+    nome: "Tenda",
+    descricao: "Tenda grande para até 5 goblins (10 se não se importarem de ficar empilhados)"
+  },
+  {
+    nome: "Veneno",
+    descricao: "Pode colocar na bebida de alguém. Aquele que beber receberá 1 ferimento por minuto"
+  },
+]
 

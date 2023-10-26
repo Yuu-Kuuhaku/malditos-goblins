@@ -353,10 +353,12 @@ const nomes: NomeObject[][] = [
     {
       modificador: (goblin: any) => {
         goblin.perguntas.push({
-          pergunta: 'Inverta seu nome',
+          pergunta: 'Digite seu nome',
           hasOptions: false,
           resolve: (resp: string) => {
-            goblin.nome = resp;
+            if(resp && typeof resp == 'string' && resp.length > 0){
+              goblin.nome = resp.split('').reverse().join('');
+            }
           },
         });
       },
@@ -364,10 +366,12 @@ const nomes: NomeObject[][] = [
     {
       modificador: (goblin: any) => {
         goblin.perguntas.push({
-          pergunta: 'Inverta seu nome',
+          pergunta: 'Digite seu nome',
           hasOptions: false,
           resolve: (resp: string) => {
-            goblin.nome = resp;
+            if(resp && typeof resp == 'string' && resp.length > 0){
+              goblin.nome = resp.split('').reverse().join('');
+            }
           },
         });
       },
@@ -375,10 +379,12 @@ const nomes: NomeObject[][] = [
     {
       modificador: (goblin: any) => {
         goblin.perguntas.push({
-          pergunta: 'Inverta seu nome',
+          pergunta: 'Digite seu nome',
           hasOptions: false,
           resolve: (resp: string) => {
-            goblin.nome = resp;
+            if(resp && typeof resp == 'string' && resp.length > 0){
+              goblin.nome = resp.split('').reverse().join('');
+            }
           },
         });
       },

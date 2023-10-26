@@ -9,7 +9,7 @@ table {
 	// display: inline-block;
 	.custom-tooltiptext {
 		visibility: hidden;
-		width: 400px;
+		// width: 100%;
 		background-color: #eee;
 		text-align: left;
 		border-radius: 6px;
@@ -19,22 +19,22 @@ table {
 		position: absolute;
 		z-index: 2;
 		top: 125%;
-		left: 50%;
-		margin-left: -200px;
+		// left: 50%;
+		// margin-left: -200px;
 		opacity: 0;
 		transition: opacity 0.3s;
 		white-space: normal;
 		font-family: Roboto, 'Helvetica Neue', sans-serif;
-		&::after {
-			content: "";
-			position: absolute;
-			bottom: 100%;
-			left: 50%;
-			margin-left: -5px;
-			border-width: 5px;
-			border-style: solid;
-			border-color: #555 transparent transparent transparent;
-		}
+		// &::after {
+		// 	content: "";
+		// 	position: absolute;
+		// 	bottom: 100%;
+		// 	// left: 50%;
+		// 	margin-left: -5px;
+		// 	border-width: 5px;
+		// 	border-style: solid;
+		// 	border-color: #555 transparent transparent transparent;
+		// }
 	}
 	&:focus {
 		.custom-tooltiptext {

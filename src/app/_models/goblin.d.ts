@@ -39,11 +39,13 @@ export interface Caracteristica {
 
 export interface Pergunta {
   pergunta: string,
-  hasOptions: boolean,
-  options: Option[],
+  hasOptions?: boolean,
+  options?: Option[],
   multiple?: boolean,
   minLength?: number,
   maxLength?: number,
+  hasItems?: boolean,
+
 
   resolve: function
 }

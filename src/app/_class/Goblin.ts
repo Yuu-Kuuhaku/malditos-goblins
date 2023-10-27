@@ -20,6 +20,9 @@ export class Goblin implements GoblinInterface {
       this.isDead = true;
       return;
     } else if (value > this.nivel) {
+      if(this.isDead){
+        this.isDead = false;
+      }
       let poder: Poder = ocupacoes.find(item => item.nome == this.ocupacao)?.poderes.find(item => item.nivel == value) as Poder;
       if (poder) {
         this.poderes.push(
@@ -27,6 +30,9 @@ export class Goblin implements GoblinInterface {
         )
       }
     } else if (value < this.nivel) {
+      if(this.isDead){
+        this.isDead = false;
+      }
       let poderIndex = this.poderes.findIndex(item => item.nivel == this.nivel)
 
       if (poderIndex > -1) {

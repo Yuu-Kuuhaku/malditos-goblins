@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { NewGoblinComponent } from './new-goblin/new-goblin.component';
-import { GoblinInterface } from './_models/goblin';
+import { Equipamento, GoblinInterface, Pergunta } from './_models/goblin';
 import { Goblin } from './_class/Goblin';
 
 @Component({
@@ -25,20 +25,25 @@ export class AppComponent {
 
   newGoblin() {
     let goblin: GoblinInterface = new Goblin();
+    
     if (goblin.perguntas.length > 0) {
       this.openDialog(goblin).subscribe({
         next: (data: any) => {
           if (data) {
-            console.log(data);
+           
             goblin.perguntas.forEach((element: any, index: number) => {
               element.resolve(data.formPerguntas[index]);
             });
+            this.goblins.forEach((goblin: GoblinInterface) => {
+              goblin.isDead =true
+            })
 
             this.goblins.unshift(goblin);
           }
         },
       });
     } else {
+      
       this.goblins.unshift(goblin);
     }
   }
@@ -61,8 +66,68 @@ export class AppComponent {
     return this.dialogRefNewGoblin.afterClosed();
   }
 
-  teste(){
-  
+  addItem(goblin: GoblinInterface){
+    
+    const perguntas: Pergunta[] = [{
+      pergunta: `Adicionar Item`,
+      hasItems: true,
+      resolve: (resp: Equipamento[]) => {
+        
+        goblin.equipamentos.push(resp[0])
+      }
+    }]
+
+    this.dialog.open(NewGoblinComponent, {
+      data: {
+        perguntas
+      },
+    }).afterClosed().subscribe({
+      next: (data: any) => {
+        if (data) {
+          console.log(data);
+          perguntas.forEach((element: any, index: number) => {
+            element.resolve(data.formPerguntas[index]);
+          });
+
+        }
+      },
+    });
+  }
+
+  removeItem(goblin: GoblinInterface, equipamento: Equipamento, indexItem: number){
+
+    const perguntas: Pergunta[] = [{
+      pergunta: `Remover ${equipamento?.nome}?`,
+      hasOptions: true,
+      options: [{
+        label: 'Sim',
+        value: 'Sim',
+      },{
+        label: 'Não',
+        value: 'Não'
+      }
+      ],
+      resolve: (resp: string) => {
+        if(resp == 'Sim'){
+          goblin.equipamentos.splice(indexItem, 1);
+        }
+      }
+    }]
+
+    this.dialog.open(NewGoblinComponent, {
+      data: {
+        perguntas
+      },
+    }).afterClosed().subscribe({
+      next: (data: any) => {
+        if (data) {
+          perguntas.forEach((element: any, index: number) => {
+            element.resolve(data.formPerguntas[index]);
+          });
+
+        }
+      },
+    });
   }
 }
 
@@ -70,7 +135,7 @@ export class AppComponent {
 const armas = [
   { nome: "Adaga", uso: "Uma mão", ataque: "Corporal", bonus: "+1d", especial: [{ nome: "Arremesso", descricao: "Este objeto pode ser arremessado como se fosse uma arma de distância", }] },
   {
-    nome: "Arco e Flecha", tipo_arma: "Duas mãos", tipo_dano: "Distância", bonus: "+2d", especial: [
+    nome: "Arco e Flecha", uso: "Duas mãos", ataque: "Distância", bonus: "+2d", especial: [
       {
         nome: "Munição",
         descricao: "Você tem um limite de X ataques. Precisará conseguir mais munição para poder atacar",

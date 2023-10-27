@@ -10,11 +10,11 @@
     </div>
 
     <div class="col-12 col-md-6" *ngFor="let goblin of goblins">
-      <table class="table table-striped table-bordered">
+      <table class="table table-striped table-bordered" [ngClass]="{'table-dark': goblin.isDead,}">
         <thead>
           <tr>
 
-            <th colspan="6">
+            <th  scope="col" colspan="6">
               Ficha de goblins
             </th>
           </tr>
@@ -75,8 +75,9 @@
             <td>
               {{goblin?.combate}}
             </td>
-            <td colspan="3" >
+            <td colspan="3" style="position: relative;">
               <strong>Equipamento:</strong>
+              <mat-icon style="position: absolute; right: 0; color: green; cursor: pointer;" (click)="addItem(goblin)">add_circle</mat-icon>
             </td>
           </tr>
           <tr>
@@ -90,7 +91,8 @@
             </td>
             <th colspan="3" rowspan="5">
               
-              <div class="mb-2 "  *ngFor="let equipamento of goblin.equipamentos;">
+              <div class="mb-2 " style="position: relative;"  *ngFor="let equipamento of goblin.equipamentos;let idx=index;">
+                <mat-icon style="position: absolute; right: 0; color: red; cursor: pointer;"  (click)="removeItem(goblin, equipamento, idx)">close</mat-icon>
                 <span *ngIf="equipamento?.durabilidade != undefined; else templateArma;">
                   {{equipamento?.nome}}: protege  
                   <span >
@@ -148,8 +150,7 @@
                     </span>
                   </span>
                 </ng-template>
-
-                
+   
               </div>
             </th>
            

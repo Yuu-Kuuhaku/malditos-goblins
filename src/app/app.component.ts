@@ -16,9 +16,9 @@ export class AppComponent {
   title = 'malditos-goblins';
 
   dialogRefNewGoblin!: MatDialogRef<NewGoblinComponent>;
-  armas: any[] = [];
+  
   constructor(private dialog: MatDialog) {
-    this.armas = armas
+    
    }
 
   public goblins: any[] = [];
@@ -79,6 +79,7 @@ export class AppComponent {
 
     this.dialog.open(NewGoblinComponent, {
       data: {
+        title: 'Novo equipamento',
         perguntas
       },
     }).afterClosed().subscribe({
@@ -116,6 +117,7 @@ export class AppComponent {
 
     this.dialog.open(NewGoblinComponent, {
       data: {
+        title: 'Remover equipamento',
         perguntas
       },
     }).afterClosed().subscribe({

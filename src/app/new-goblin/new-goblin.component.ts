@@ -10,6 +10,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class NewGoblinComponent {
 
 
+  title: string = 'Detalhes do novo goblin';
   form!: FormGroup;
   escolhas: any[];
   armas: ({ nome: string; tipo_arma: string; tipo_dano: string; bonus: string; especial: { nome: string; descricao: string; quantidade: number; }[]; uso?: undefined; ataque?: undefined; } | { nome: string; uso: string; ataque: string; bonus: string; especial: ({ nome: string; descricao: string; quantidade?: undefined; } | { nome: string; descricao: string; quantidade: number; })[]; tipo_arma?: undefined; tipo_dano?: undefined; } | { nome: string; uso: string; ataque: string; bonus: string; tipo_arma?: undefined; tipo_dano?: undefined; especial?: undefined; })[];
@@ -20,6 +21,11 @@ export class NewGoblinComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
   ){
     console.log(data);
+
+    if(data?.title){
+      this.title = data?.title;  
+    }
+    
     this.armas = armas;
     this.equipamentos = equipamentos;
     this.protecoes = protecoes;
